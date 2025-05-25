@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FiStar, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -64,6 +64,7 @@ const testimonials: Testimonial[] = [
 
 const Testimonials: React.FC = () => {
   const swiperRef = useRef<SwiperType | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     AOS.init({ duration: 800 });
@@ -76,23 +77,27 @@ const Testimonials: React.FC = () => {
       </h2>
 
       <div className="relative max-w-6xl mx-auto">
-        {/* Custom Arrows */}
+        {/* Navigation Arrows */}
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className="absolute left-0 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-white p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
+          className="absolute -left-12 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-white p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
         >
           <FiChevronLeft className="text-2xl" />
         </button>
 
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="absolute right-0 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-white p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
+          className="absolute -right-12 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-white p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
         >
           <FiChevronRight className="text-2xl" />
         </button>
 
         <Swiper
-          onSwiper={(swiper: SwiperType) => (swiperRef.current = swiper)}
+          onSwiper={(swiper: SwiperType) => {
+            swiperRef.current = swiper;
+            setActiveIndex(swiper.realIndex);
+          }}
+          onSlideChange={(swiper: { realIndex: React.SetStateAction<number>; }) => setActiveIndex(swiper.realIndex)}
           effect={'coverflow'}
           grabCursor={true}
           centeredSlides={true}
@@ -109,44 +114,46 @@ const Testimonials: React.FC = () => {
           modules={[EffectCoverflow, Pagination]}
           className="pb-8"
         >
-          {testimonials.map((t) => (
-            <SwiperSlide
-              key={t.id}
-              className="max-w-sm h-[420px] flex flex-col justify-between bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 text-left text-white border border-white/30 shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-500"
+          {testimonials.map((t, index) => {
+            const isActive = index === activeIndex;
+            return (
+              <SwiperSlide
+                key={t.id}
+                className={`max-w-sm h-[420px] flex flex-col justify-between bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-6 text-left text-white border border-white/30 shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-500 ${
+                  isActive ? '' : 'blur-sm opacity-50 scale-[0.95]'
+                }`}
+              >
+                <div>
+                  <div className="text-5xl mb-4 text-yellow-400 leading-none">❝</div>
+                  <h3 className="text-lg font-semibold mb-2">Great Work</h3>
+                  <p className="text-sm leading-relaxed whitespace-pre-line">{t.text}</p>
+                </div>
 
-            >
-              <div>
-                <div className="text-5xl mb-4 text-yellow-400 leading-none">❝</div>
-                <h3 className="text-lg font-semibold mb-2">Great Work</h3>
-                <p className="text-sm leading-relaxed whitespace-pre-line">
-                  {t.text}
-                </p>
-              </div>
+                <div className="flex items-center justify-between mt-6">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src={t.image}
+                      alt={t.name}
+                      className="w-10 h-10 rounded-full object-cover"
+                    />
+                    <div>
+                      <p className="text-sm font-medium">{t.name}</p>
+                      <p className="text-xs text-gray-300">{t.company}</p>
+                    </div>
+                  </div>
 
-              <div className="flex items-center justify-between mt-6">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={t.image}
-                    alt={t.name}
-                    className="w-10 h-10 rounded-full object-cover"
-                  />
-                  <div>
-                    <p className="text-sm font-medium">{t.name}</p>
-                    <p className="text-xs text-gray-300">{t.company}</p>
+                  <div className="flex space-x-1 text-yellow-400">
+                    {[...Array(5)].map((_, i) => (
+                      <FiStar
+                        key={i}
+                        className={i < t.rating ? '' : 'text-gray-500'}
+                      />
+                    ))}
                   </div>
                 </div>
-
-                <div className="flex space-x-1 text-yellow-400">
-                  {[...Array(5)].map((_, i) => (
-                    <FiStar
-                      key={i}
-                      className={i < t.rating ? '' : 'text-gray-500'}
-                    />
-                  ))}
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </section>
