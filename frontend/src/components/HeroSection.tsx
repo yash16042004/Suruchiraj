@@ -4,11 +4,11 @@ import React from 'react';
 const HeroSection: React.FC = () => {
   return (
     <section
-      className="relative bg-cover bg-center h-[500px] flex items-center"
-      style={{ backgroundImage: "url('/spices-main.jpg')" }}
+      className="relative bg-cover bg-center h-[550px] flex items-center"
+      style={{ backgroundImage: "url('hero.png')" }}
     >
       {/* Black overlay */}
-      <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
 
       {/* Left-aligned content */}
       <div className="relative container mx-auto px-6 z-10">

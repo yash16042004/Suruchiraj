@@ -64,7 +64,7 @@ const TrendingMasalas: React.FC = () => {
   };
 
   return (
-    <section id="trending" className="py-10 px-4 md:px-8 text-center relative">
+    <section id="trending" className="py-4 px-4 md:px-8 text-center relative">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white">
         Trending <span className="text-yellow-400">Masalas</span>
       </h2>
