@@ -20,7 +20,7 @@ const TopCategories: React.FC = () => {
   const visibleCategories = showAll ? categories : categories.slice(0, 6);
 
   return (
-    <section className="py-0 px-2 sm:px-6 md:px-10 text-center font-sans w-full">
+    <section id="categories" className="py-0 px-2 sm:px-6 md:px-10 text-center font-sans w-full">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white font-[Poppins]">
         Top <span className="text-yellow-400">Categories</span>
       </h2>
@@ -28,8 +28,8 @@ const TopCategories: React.FC = () => {
       <div
         className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 place-items-center"
         style={{
-          columnGap: '8px',   // Custom horizontal spacing
-          rowGap: '20px',     // Custom vertical spacing
+          columnGap: '0px',   // Custom horizontal spacing
+          rowGap: '10px',     // Reduced vertical spacing
         }}
       >
         {visibleCategories.map((category, index) => (

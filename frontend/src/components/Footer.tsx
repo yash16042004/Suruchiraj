@@ -28,10 +28,6 @@ const Footer = () => {
     </a>
   </div>
 </div>
-
-
-
-
           {/* Navigation Links */}
           <div>
             <h3 className="text-lg font-semibold mb-2">Company</h3>
@@ -39,7 +35,7 @@ const Footer = () => {
               <li><a href="#" className="hover:text-red-400">Home</a></li>
               <li><a href="#about" className="hover:text-red-400">About</a></li>
               <li><a href="#categories" className="hover:text-red-400">Menu</a></li>
-              <li><a href="#gallery" className="hover:text-red-400">Gallery</a></li>
+              <li><a href="#international" className="hover:text-red-400">International Cuisine</a></li>
               <li><a href="#footer" className="hover:text-red-400">Contact</a></li>
             </ul>
           </div>

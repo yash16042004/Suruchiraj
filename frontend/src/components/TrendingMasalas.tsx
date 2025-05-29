@@ -51,7 +51,10 @@ const TrendingMasalas: React.FC = () => {
 
   const handleAddToCart = (product: Product) => {
     const qty = quantities[product.id] || 1;
-    addToCart({ id: product.id, name: product.name, quantity: qty });
+    addToCart({
+      id: product.id, name: product.name, quantity: qty,
+      price: 0
+    });
     toast.success(`${product.name} (x${qty}) added to cart!`);
   };
 
@@ -74,7 +77,9 @@ const TrendingMasalas: React.FC = () => {
         onClick={() => swiperRef.current?.slidePrev()}
         disabled={isBeginning}
         className={`absolute left-0 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
-          isBeginning ? 'bg-white/10 text-gray-400 cursor-not-allowed' : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
+          isBeginning
+            ? 'bg-white/10 text-gray-400 cursor-not-allowed'
+            : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
         }`}
       >
         <FiChevronLeft className="text-2xl" />
@@ -83,7 +88,9 @@ const TrendingMasalas: React.FC = () => {
         onClick={() => swiperRef.current?.slideNext()}
         disabled={isEnd}
         className={`absolute right-0 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
-          isEnd ? 'bg-white/10 text-gray-400 cursor-not-allowed' : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
+          isEnd
+            ? 'bg-white/10 text-gray-400 cursor-not-allowed'
+            : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
         }`}
       >
         <FiChevronRight className="text-2xl" />
@@ -130,7 +137,7 @@ const TrendingMasalas: React.FC = () => {
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="h-60 md:h-54 w-full object-fill drop-shadow-xl pointer-events-none"
+                      className="h-full w-full object-fill drop-shadow-xl pointer-events-none"
                     />
                     <div
                       className="absolute top-2 right-2 z-50 pointer-events-auto cursor-pointer"
@@ -149,7 +156,7 @@ const TrendingMasalas: React.FC = () => {
               </div>
 
               {/* Bottom Info Section */}
-              <div className="mt-48 px-2 pt-10">
+              <div className="mt-[260px] px-2 pt-0">
                 <div className="bg-transparent border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl p-4 pb-5 text-white relative">
                   <div className="flex items-end justify-between">
                     <div className="flex-1 text-left">
@@ -167,9 +174,9 @@ const TrendingMasalas: React.FC = () => {
                         onClick={() => handleAddToCart(product)}
                         className="bg-yellow-400 text-black px-3 py-1 text-xs rounded-full font-medium hover:brightness-110 transition"
                       >
-                        Add Cart
+                        Add to Cart
                       </button>
-                      <div className="flex items-center space-x-1 mr-3">
+                      <div className="flex items-center space-x-1 mr-4">
                         <button
                           onClick={() =>
                             setQuantities((q) => ({

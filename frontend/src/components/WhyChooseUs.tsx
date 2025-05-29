@@ -21,7 +21,7 @@ const WhyChooseUs: React.FC = () => {
       </h2>
 
       {/* Container */}
-      <div className="max-w-4xl mx-auto backdrop-blur-md rounded-3xl p-6 md:p-10 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/20 shadow-md bg-transparent">
+      <div className="max-w-4xl mx-auto backdrop-blur-md rounded-3xl p-6 md:p-5 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/20 shadow-md bg-transparent">
 
         {features.map((feature, index) => {
           const customSize =
@@ -36,7 +36,7 @@ const WhyChooseUs: React.FC = () => {
             >
               <img
                 src={feature.icon}
-                className={`object-contain mb-0 transition-transform duration-300 hover:scale-110 ${customSize}`}
+                className={`object-contain mb-1 transition-transform duration-300 hover:scale-110 ${customSize}`}
                 alt={feature.text}
               />
               <p className="text-sm md:text-base font-medium">{feature.text}</p>
