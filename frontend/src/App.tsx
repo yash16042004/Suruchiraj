@@ -1,5 +1,6 @@
 // src/App.tsx
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
 import WhyChooseUs from './components/WhyChooseUs';
@@ -8,16 +9,12 @@ import TrendingMasalas from './components/TrendingMasalas';
 import InternationalCuisine from './components/InternationalCuisine';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
+import SignInPage from './pages/SignInPage.tsx'; 
 import { Toaster } from 'react-hot-toast';
 
-const App: React.FC = () => {
+const HomePage: React.FC = () => {
   return (
-    <div className="font-sans text-gray-900">
-      <Navbar />
-
-      {/* Toast Notification Provider */}
-      <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
-
+    <>
       {/* Dynamic background wrapper (parallax style) */}
       <div
         className="bg-fixed bg-cover bg-center"
@@ -43,7 +40,7 @@ const App: React.FC = () => {
           <section className="py-10">
             <InternationalCuisine />
           </section>
-          
+
           <section className="py-10">
             <Testimonials />
           </section>
@@ -52,7 +49,23 @@ const App: React.FC = () => {
 
       {/* Footer stays on default background */}
       <Footer />
-    </div>
+    </>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <Router>
+      <div className="font-sans text-gray-900">
+        <Navbar />
+        <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<SignInPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

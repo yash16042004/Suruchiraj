@@ -23,12 +23,12 @@ interface Product {
 }
 
 const products: Product[] = [
-  { id: 1, name: 'Turmeric Powder', image: 'turmeric.png', bgColor: 'bg-[#FFD343]' },
-  { id: 2, name: 'Red Powder', image: 'chilli.png', bgColor: 'bg-[#C94C45]' },
-  { id: 3, name: 'Dhaniya Powder', image: 'dhaniya.png', bgColor: 'bg-[#A89A5D]' },
-  { id: 4, name: 'Dummy Masala', image: 'turmeric.png', bgColor: 'bg-[#eab308]' },
-  { id: 5, name: 'Dummy Masala', image: 'chilli.png', bgColor: 'bg-[#f87171]' },
-  { id: 6, name: 'Dummy Masala', image: 'dhaniya.png', bgColor: 'bg-[#60a5fa]' },
+  { id: 1, name: 'Turmeric Powder', image: '/trending masalas/turmeric.png', bgColor: 'bg-[#FFD343]' },
+  { id: 2, name: 'Red Powder', image: '/trending masalas/chilli.png', bgColor: 'bg-[#C94C45]' },
+  { id: 3, name: 'Dhaniya Powder', image: '/trending masalas/dhaniya.png', bgColor: 'bg-[#A89A5D]' },
+  { id: 4, name: 'Dummy Masala', image: '/trending masalas/turmeric.png', bgColor: 'bg-[#eab308]' },
+  { id: 5, name: 'Dummy Masala', image: '/trending masalas/chilli.png', bgColor: 'bg-[#f87171]' },
+  { id: 6, name: 'Dummy Masala', image: '/trending masalas/dhaniya.png', bgColor: 'bg-[#60a5fa]' },
 ];
 
 const TrendingMasalas: React.FC = () => {

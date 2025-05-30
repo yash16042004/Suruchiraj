@@ -8,6 +8,8 @@ import {
 import { useCart } from '../context/CartContext';
 import clsx from 'clsx';
 import CartDrawer from './CartDrawer';
+import { Link } from 'react-router-dom';
+
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -65,7 +67,10 @@ const Navbar: React.FC = () => {
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           {/* Logo */}
-          <div className="text-2xl font-bold text-white">Suruchiraj</div>
+          <Link to="/" className="text-2xl font-bold text-white hover:text-red-500 transition">
+            Suruchiraj
+          </Link>
+
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
@@ -96,10 +101,11 @@ const Navbar: React.FC = () => {
                 />
               </div>
 
-              <button className="flex items-center space-x-1 text-gray-300 hover:text-red-500 transition">
+              <Link to="/signin" className="flex items-center space-x-1 text-gray-300 hover:text-red-500 transition">
                 <FiUser className="text-xl" />
                 <span className="text-sm">Sign In</span>
-              </button>
+              </Link>
+
 
               <button
                 onClick={() => setIsCartOpen(true)}

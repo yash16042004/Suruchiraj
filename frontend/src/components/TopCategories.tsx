@@ -20,48 +20,43 @@ const TopCategories: React.FC = () => {
   const visibleCategories = showAll ? categories : categories.slice(0, 6);
 
   return (
-    <section id="categories" className="py-0 px-2 sm:px-6 md:px-10 text-center font-sans w-full">
+    <section
+      id="categories"
+      className="py-4 px-2 sm:px-6 md:px-10 text-center font-sans w-full"
+    >
       <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white font-[Poppins]">
         Top <span className="text-yellow-400">Categories</span>
       </h2>
 
-      <div
-        className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 place-items-center"
-        style={{
-          columnGap: '0px',   // Custom horizontal spacing
-          rowGap: '10px',     // Reduced vertical spacing
-        }}
-      >
-        {visibleCategories.map((category, index) => (
-          <div
-            key={index}
-            className="relative h-48 w-36 bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] border border-white/10"
-            style={{
-              padding: '0',
-              margin: '0',
-            }}
-          >
-            {/* Image Circle */}
+      <div className="max-w-fit mx-auto">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-5 gap-y-5 justify-center items-center">
+          {visibleCategories.map((category, index) => (
             <div
-              className="absolute w-40 h-40 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90"
-              style={{ top: '-10px', left: '-50px' }}
+              key={index}
+              className="relative h-48 w-36 bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.02] border border-white/10"
             >
-              <img
-                src={category.image}
-                alt={category.label}
-                className="w-full h-full object-full"
-              />
-            </div>
+              {/* Image Circle */}
+              <div
+                className="absolute w-40 h-40 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90"
+                style={{ top: '-10px', left: '-50px' }}
+              >
+                <img
+                  src={category.image}
+                  alt={category.label}
+                  className="w-full h-full object-cover"
+                />
+              </div>
 
-            {/* Label */}
-            <div className="absolute bottom-4 right-4 text-white text-base font-semibold font-[Poppins] text-right opacity-90 transition-opacity duration-300">
-              {category.label}
-            </div>
+              {/* Label */}
+              <div className="absolute bottom-4 right-4 text-white text-base font-semibold font-[Poppins] text-right opacity-90">
+                {category.label}
+              </div>
 
-            {/* Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-white/10 pointer-events-none" />
-          </div>
-        ))}
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-white/10 pointer-events-none" />
+            </div>
+          ))}
+        </div>
       </div>
 
       {!showAll && (

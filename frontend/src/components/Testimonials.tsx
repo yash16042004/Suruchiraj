@@ -26,7 +26,7 @@ const testimonials: Testimonial[] = [
     name: 'Anya Sharma',
     company: 'Facebook',
     text: `Suruchiraj spices make my food look and taste amazing. They help me create beautiful dishes and get noticed for my cooking.`,
-    image: '/userpp/anya.png',
+    image: '/userpp/Anya.png',
     rating: 5,
   },
   {
@@ -34,7 +34,7 @@ const testimonials: Testimonial[] = [
     name: 'Rohan Patel',
     company: 'Facebook',
     text: `I love Suruchiraj's spices because they are healthy and pure. They help me make tasty, nutritious meals for my wellness journey. I love Suruchiraj's spices because they are healthy and pure. They help me make tasty, nutritious meals for my wellness journey. I love Suruchiraj's spices because they are healthy and pure. They help me make tasty, nutritious meals for my wellness journey.`,
-    image: '/userpp/rohan.png',
+    image: '/userpp/Rohan.png',
     rating: 4,
   },
   {
@@ -50,7 +50,7 @@ const testimonials: Testimonial[] = [
     name: 'Deepak Marathe',
     company: 'Instagram',
     text: `Suruchiraj helps me cook real dishes from around the world. I love learning about the history and culture of their unique spices.`,
-    image: '/userpp/deepak.png',
+    image: '/userpp/Deepak.png',
     rating: 5,
   },
   {
@@ -58,7 +58,7 @@ const testimonials: Testimonial[] = [
     name: 'Aisha Khan',
     company: 'Twitter',
     text: `Suruchiraj spices help me make traditional dishes that taste just like home. They are perfect for our family celebrations and keeping our traditions alive.`,
-    image: '/userpp/aisha.png',
+    image: '/userpp/Anamika.png',
     rating: 4,
   },
   {
@@ -66,7 +66,7 @@ const testimonials: Testimonial[] = [
     name: 'Arjun Verma',
     company: 'Instagram',
     text: `Suruchiraj spices are cheap and make my simple meals taste great. It's easy to cook delicious food without spending a lot of money.`,
-    image: '/userpp/arjun.png',
+    image: '/userpp/Arjun.png',
     rating: 4,
   },
   {
@@ -74,7 +74,7 @@ const testimonials: Testimonial[] = [
     name: 'Shanti Kale',
     company: 'Facebook',
     text: `I trust Suruchiraj because their spices are good for the Earth and sourced fairly. They make it easy to cook in a way that matches my values.`,
-    image: '/userpp/shanti.png',
+    image: '/userpp/Shanti.png',
     rating: 4,
   },
   {
@@ -82,7 +82,7 @@ const testimonials: Testimonial[] = [
     name: 'Arjun Mehta',
     company: 'Facebook',
     text: `Suruchiraj spices always deliver great flavor, which is perfect for my tech-driven cooking. They help me try new recipes and share my creations online.`,
-    image: '/userpp/karan.png',
+    image: '/userpp/Karan.png',
     rating: 4,
   },
   {
@@ -90,7 +90,7 @@ const testimonials: Testimonial[] = [
     name: 'Lakshmi Menon',
     company: 'Facebook',
     text: `Suruchiraj helps me explore the rich history of food through their authentic spices. It's like taking a journey into different cultures with every dish.`,
-    image: '/userpp/lakshmi.png',
+    image: '/userpp/Lakshmi.png',
     rating: 4,
   },
   {
@@ -98,10 +98,58 @@ const testimonials: Testimonial[] = [
     name: 'Gopal Singh',
     company: 'Facebook',
     text: `Cooking is fun with Suruchiraj because their spices are always good quality and easy to use. They make every meal a special and enjoyable experience.`,
-    image: '/userpp/gopal.png',
+    image: '/userpp/Gopal.png',
     rating: 4,
   },
 ];
+
+const TestimonialCard: React.FC<Testimonial> = ({ text, name, company, rating, image }) => {
+  const [expanded, setExpanded] = useState(false);
+  const characterLimit = 250;
+  const isLong = text.length > characterLimit;
+  const displayedText = expanded ? text : text.slice(0, characterLimit) + (isLong ? '...' : '');
+
+  return (
+    <div className="flex flex-col h-full justify-between">
+      {/* Quote and text */}
+      <div>
+        <div className="text-4xl sm:text-5xl mb-2 text-yellow-400 leading-none">❝</div>
+        <div className="pr-1 text-sm sm:text-base leading-relaxed whitespace-pre-line text-white/90">
+          {displayedText}
+        </div>
+        {isLong && (
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="mt-2 text-yellow-400 text-sm hover:underline transition"
+          >
+            {expanded ? 'View Less' : 'View More'}
+          </button>
+        )}
+      </div>
+
+      {/* User info */}
+      <div className="flex items-start gap-3 mt-4">
+        <img
+          src={image}
+          alt={name}
+          className="w-14 h-14 rounded-full object-cover"
+        />
+        <div>
+          <p className="text-sm font-medium text-white">{name}</p>
+          <p className="text-xs text-gray-300">{company}</p>
+          <div className="flex space-x-1 text-yellow-400 mt-1">
+            {[...Array(5)].map((_, i) => (
+              <AiFillStar
+                key={i}
+                className={`text-sm ${i < rating ? 'text-yellow-400' : 'text-white/20'}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const Testimonials: React.FC = () => {
   const swiperRef = useRef<SwiperType | null>(null);
@@ -138,9 +186,7 @@ const Testimonials: React.FC = () => {
             swiperRef.current = swiper;
             setActiveIndex(swiper.realIndex);
           }}
-          onSlideChange={(swiper: { realIndex: React.SetStateAction<number> }) =>
-            setActiveIndex(swiper.realIndex)
-          }
+          onSlideChange={(swiper: { realIndex: React.SetStateAction<number>; }) => setActiveIndex(swiper.realIndex)}
           effect="coverflow"
           grabCursor
           centeredSlides
@@ -179,38 +225,11 @@ const Testimonials: React.FC = () => {
             return (
               <SwiperSlide
                 key={t.id}
-                className={`h-[400px] flex flex-col justify-between bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-5 text-left text-white border border-white/30 shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-500 ${
+                className={`h-[420px] flex flex-col justify-between bg-white bg-opacity-10 backdrop-blur-md rounded-xl p-5 text-left text-white border border-white/30 shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-500 ${
                   isActive ? '' : 'blur-[3px] opacity-50 scale-[0.95]'
                 }`}
               >
-                <div className="flex flex-col h-full justify-between">
-                  <div>
-                    <div className="text-4xl sm:text-5xl mb-2 text-yellow-400 leading-none">❝</div>
-                    <div className="max-h-[180px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent text-sm sm:text-base leading-relaxed whitespace-pre-line">
-                      {t.text}
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3 mt-0">
-                    <img
-                      src={t.image}
-                      alt={t.name}
-                      className="w-14 h-14 rounded-full object-cover"
-                    />
-                    <div>
-                      <p className="text-sm font-medium">{t.name}</p>
-                      <p className="text-xs text-gray-300">{t.company}</p>
-                      <div className="flex space-x-1 text-yellow-400 mt-1">
-                        {[...Array(5)].map((_, i) => (
-                          <AiFillStar
-                            key={i}
-                            className={`text-sm ${i < t.rating ? 'text-yellow-400' : 'text-white'}`}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <TestimonialCard {...t} />
               </SwiperSlide>
             );
           })}

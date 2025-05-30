@@ -6,10 +6,10 @@ interface Feature {
 }
 
 const features: Feature[] = [
-  { icon: 'I1.png', text: '100% Pure Ingrediants' },
-  { icon: 'l2new.png', text: 'No Preservative' },
-  { icon: 'I3new.png', text: 'Hygienic Packaging' },
-  { icon: 'l4new.png', text: 'Traditional Blend' },
+  { icon: '/why choose us/I1.png', text: '100% Pure Ingrediants' },
+  { icon: '/why choose us/l2new.png', text: 'No Preservative' },
+  { icon: '/why choose us/I3new.png', text: 'Hygienic Packaging' },
+  { icon: '/why choose us/l4new.png', text: 'Traditional Blend' },
 ];
 
 const WhyChooseUs: React.FC = () => {
