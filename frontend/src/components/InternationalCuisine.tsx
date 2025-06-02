@@ -34,7 +34,7 @@ const InternationalCuisine: React.FC = () => {
   const sideCuisines = cuisines.filter((c) => !c.featured);
 
   return (
-    <section id="international" className="py-4 px-6 text-white bg-transparent">
+    <section id="international" className="px-6 text-white bg-transparent">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-center">
         International <span className="text-yellow-400">Cuisine</span>
       </h2>

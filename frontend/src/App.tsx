@@ -25,23 +25,23 @@ const HomePage: React.FC = () => {
         <div className="bg-black bg-opacity-50">
           <HeroSection />
 
-          <section className="py-10">
+          <section className="py-5">
             <WhyChooseUs />
           </section>
 
-          <section className="py-10">
+          <section className="py-5">
             <TopCategories />
           </section>
 
-          <section className="py-10">
+          <section className="py-5">
             <TrendingMasalas />
           </section>
 
-          <section className="py-10">
+          <section className="py-5">
             <InternationalCuisine />
           </section>
 
-          <section className="py-10">
+          <section className="py-5">
             <Testimonials />
           </section>
         </div>

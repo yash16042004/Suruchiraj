@@ -34,15 +34,21 @@ const products: Product[] = [
 const TrendingMasalas: React.FC = () => {
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
   const [wishlist, setWishlist] = useState<{ [key: number]: boolean }>({});
+  const [showQuantitySelector, setShowQuantitySelector] = useState<{ [key: number]: boolean }>({});
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
   const { addToCart } = useCart();
 
   useEffect(() => {
-    const initial: { [key: number]: number } = {};
-    products.forEach((product) => (initial[product.id] = 1));
-    setQuantities(initial);
+    const initialQty: { [key: number]: number } = {};
+    const initialSelector: { [key: number]: boolean } = {};
+    products.forEach((product) => {
+      initialQty[product.id] = 1;
+      initialSelector[product.id] = false;
+    });
+    setQuantities(initialQty);
+    setShowQuantitySelector(initialSelector);
   }, []);
 
   const toggleWishlist = (id: number) => {
@@ -58,6 +64,22 @@ const TrendingMasalas: React.FC = () => {
     toast.success(`${product.name} (x${qty}) added to cart!`);
   };
 
+  const handleIncrement = (id: number, product: Product) => {
+    setQuantities((q) => ({ ...q, [id]: (q[id] || 1) + 1 }));
+    handleAddToCart(product);
+  };
+
+  const handleDecrement = (id: number) => {
+    setQuantities((q) => {
+      const newQty = (q[id] || 1) - 1;
+      if (newQty <= 0) {
+        setShowQuantitySelector((s) => ({ ...s, [id]: false }));
+        return { ...q, [id]: 1 };
+      }
+      return { ...q, [id]: newQty };
+    });
+  };
+
   const handleSlideChange = () => {
     const swiper = swiperRef.current;
     if (swiper) {
@@ -67,12 +89,11 @@ const TrendingMasalas: React.FC = () => {
   };
 
   return (
-    <section id="trending" className="py-4 px-4 md:px-8 text-center relative">
+    <section id="trending" className=" px-4 md:px-8 text-center relative">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white">
         Trending <span className="text-yellow-400">Masalas</span>
       </h2>
 
-      {/* Custom Navigation Arrows */}
       <button
         onClick={() => swiperRef.current?.slidePrev()}
         disabled={isBeginning}
@@ -106,41 +127,33 @@ const TrendingMasalas: React.FC = () => {
           onSlideChange={handleSlideChange}
           spaceBetween={16}
           slidesPerGroup={1}
-          grabCursor={true}
+          grabCursor={false}
           loop={false}
           pagination={{ clickable: true }}
           navigation={false}
           modules={[Navigation, Pagination]}
           className="pb-10"
           breakpoints={{
-            0: {
-              slidesPerView: 2,
-            },
-            640: {
-              slidesPerView: 2,
-            },
-            1024: {
-              slidesPerView: 4,
-            },
+            0: { slidesPerView: 2 },
+            640: { slidesPerView: 2 },
+            1024: { slidesPerView: 5 },
           }}
         >
           {products.map((product) => (
             <SwiperSlide
               key={product.id}
-              style={{ cursor: 'pointer' }}
               className="relative w-full overflow-visible transition-transform duration-300 hover:scale-[1.03]"
             >
-              {/* Floating Image Container */}
-              <div className="absolute -top-0 inset-x-0 z-40 px-2 pointer-events-drag">
+              <div className="absolute -top-0 inset-x-0 z-40 px-2 pointer-events-drag cursor-pointer">
                 {product.image && (
                   <div className="relative">
                     <img
                       src={product.image}
                       alt={product.name}
-                      className="h-full w-full object-fill drop-shadow-xl pointer-events-none"
+                      className="h-full w-full object-fill drop-shadow-xl pointer-events-none cursor-pointer"
                     />
                     <div
-                      className="absolute top-2 right-2 z-50 pointer-events-auto cursor-pointer"
+                      className="absolute top-2 right-2 z-50 cursor-pointer"
                       onClick={() => toggleWishlist(product.id)}
                     >
                       <FiHeart
@@ -155,10 +168,9 @@ const TrendingMasalas: React.FC = () => {
                 )}
               </div>
 
-              {/* Bottom Info Section */}
-              <div className="mt-[260px] px-2 pt-0">
-                <div className="bg-transparent border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl p-4 pb-5 text-white relative">
-                  <div className="flex items-end justify-between">
+              <div className="mt-[200px] px-2 pt-0">
+                <div className="bg-transparent backdrop-blur-xl border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl p-4 pb-5 text-white relative">
+                  <div className="flex items-start justify-between">
                     <div className="flex-1 text-left">
                       <h3 className="text-lg font-semibold leading-tight">
                         {product.name.split(' ').map((word, idx) => (
@@ -169,40 +181,31 @@ const TrendingMasalas: React.FC = () => {
                         ))}
                       </h3>
                     </div>
+
                     <div className="flex flex-col items-end space-y-1">
-                      <button
-                        onClick={() => handleAddToCart(product)}
-                        className="bg-yellow-400 text-black px-3 py-1 text-xs rounded-full font-medium hover:brightness-110 transition"
-                      >
-                        Add to Cart
-                      </button>
-                      <div className="flex items-center space-x-1 mr-4">
+                      {!showQuantitySelector[product.id] ? (
                         <button
                           onClick={() =>
-                            setQuantities((q) => ({
-                              ...q,
-                              [product.id]: Math.max(1, (q[product.id] || 1) - 1),
+                            setShowQuantitySelector((s) => ({
+                              ...s,
+                              [product.id]: true,
                             }))
                           }
-                          className="text-white hover:text-yellow-400 text-base"
+                          className="bg-yellow-400 text-black px-3 py-1 text-xs rounded-full font-medium hover:brightness-110 transition"
                         >
-                          <FiMinus />
+                          Add
                         </button>
-                        <span className="text-white font-semibold text-sm">
-                          {quantities[product.id] || 1}
-                        </span>
-                        <button
-                          onClick={() =>
-                            setQuantities((q) => ({
-                              ...q,
-                              [product.id]: (q[product.id] || 1) + 1,
-                            }))
-                          }
-                          className="text-white hover:text-yellow-400 text-base"
-                        >
-                          <FiPlus />
-                        </button>
-                      </div>
+                      ) : (
+                        <div className="flex items-center space-x-2 bg-yellow-400 rounded-full px-2 py-1 text-black font-semibold text-sm">
+                          <button onClick={() => handleDecrement(product.id)}>
+                            <FiMinus />
+                          </button>
+                          <span>{quantities[product.id]}</span>
+                          <button onClick={() => handleIncrement(product.id, product)}>
+                            <FiPlus />
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

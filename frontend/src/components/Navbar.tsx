@@ -165,7 +165,11 @@ const Navbar: React.FC = () => {
             <div className="flex space-x-6 text-white">
               <div className="flex items-center space-x-1">
                 <FiUser className="text-xl" />
-                <span className="text-sm">Sign In</span>
+                <Link to="/signin" className="flex items-center space-x-1 text-white hover:text-red-500        transition">
+                  <FiUser className="text-xl" />
+                  <span className="text-sm">Sign In</span>
+                </Link>
+
               </div>
               <button
                 onClick={() => setIsCartOpen(true)}
