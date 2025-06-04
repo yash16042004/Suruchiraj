@@ -53,7 +53,7 @@ const slides = [
   },
   {
     image: '/hero/american-hero.png',
-    heading: <>YOUR AMERICAN     <span className="text-[#B8A8A8]">FEAST AWAITS!</span></>,
+    heading: <>YOUR AMERICAN     <span className="text-[#FED48E]">FEAST AWAITS!</span></>,
     subheading: 'Effortlessly create iconic comfort food with Suruchiraj.',
   },
 

@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import SignInPage from './pages/SignInPage.tsx';
 import { Toaster } from 'react-hot-toast';
 
+// Category Pages
 import Veg from './pages/categories/Veg.tsx';
 import NonVeg from './pages/categories/NonVeg.tsx';
 import Snacks from './pages/categories/Snacks.tsx';
@@ -18,11 +19,16 @@ import Soups from './pages/categories/Soups.tsx';
 import Biryani from './pages/categories/Biryani.tsx';
 import SouthIndian from './pages/categories/SouthIndian.tsx';
 
+// Cuisine Pages
+import American from './pages/cuisines/American.tsx';
+import Thai from './pages/cuisines/Thai.tsx';
+import Mexican from './pages/cuisines/Mexican.tsx';
+import Italian from './pages/cuisines/Italian.tsx';
+import Chinese from './pages/cuisines/Chinese.tsx';
 
 const HomePage: React.FC = () => {
   return (
     <>
-      {/* Dynamic background wrapper (parallax style) */}
       <div
         className="bg-fixed bg-cover bg-center"
         style={{
@@ -54,7 +60,6 @@ const HomePage: React.FC = () => {
         </div>
       </div>
 
-      {/* Footer stays on default background */}
       <Footer />
     </>
   );
@@ -68,18 +73,24 @@ const App: React.FC = () => {
         <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
 
         <Routes>
+          {/* Home & Auth */}
           <Route path="/" element={<HomePage />} />
           <Route path="/signin" element={<SignInPage />} />
 
-          {/* Other routes can be added here */}
-
-          {/* Category Routes */}
+          {/* Top Category Pages */}
           <Route path="/categories/Veg" element={<Veg />} />
           <Route path="/categories/NonVeg" element={<NonVeg />} />
           <Route path="/categories/Snacks" element={<Snacks />} />
           <Route path="/categories/Soups" element={<Soups />} />
           <Route path="/categories/biryani" element={<Biryani />} />
           <Route path="/categories/SouthIndian" element={<SouthIndian />} />
+
+          {/* International Cuisine Pages */}
+          <Route path="/cuisine/american" element={<American />} />
+          <Route path="/cuisine/thai" element={<Thai />} />
+          <Route path="/cuisine/mexican" element={<Mexican />} />
+          <Route path="/cuisine/italian" element={<Italian />} />
+          <Route path="/cuisine/chinese" element={<Chinese />} />
         </Routes>
       </div>
     </Router>

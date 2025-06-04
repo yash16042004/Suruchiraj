@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const cuisines = [
   {
@@ -29,6 +30,8 @@ const cuisines = [
 ];
 
 const InternationalCuisine: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="international" className="px-4 md:px-8 text-center relative font-heading">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white">
@@ -39,7 +42,7 @@ const InternationalCuisine: React.FC = () => {
         {cuisines.map((cuisine, index) => (
           <div
             key={index}
-            onClick={() => console.log(`Clicked on cuisine: ${cuisine.name}`)}
+            onClick={() => navigate(`/cuisine/${cuisine.name.toLowerCase()}`)}
             className="relative cursor-pointer h-[245px] w-[190px] bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-white/10"
           >
             {/* Image */}
