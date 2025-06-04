@@ -89,15 +89,15 @@ const TrendingMasalas: React.FC = () => {
   };
 
   return (
-    <section id="trending" className=" px-4 md:px-8 text-center relative">
-      <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white">
+    <section id="trending" className=" px-4 md:px-8 text-center relative font-heading">
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white font-heading">
         Trending <span className="text-yellow-400">Masalas</span>
       </h2>
 
       <button
         onClick={() => swiperRef.current?.slidePrev()}
         disabled={isBeginning}
-        className={`absolute left-0 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+        className={`absolute left-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
           isBeginning
             ? 'bg-white/10 text-gray-400 cursor-not-allowed'
             : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
@@ -108,7 +108,7 @@ const TrendingMasalas: React.FC = () => {
       <button
         onClick={() => swiperRef.current?.slideNext()}
         disabled={isEnd}
-        className={`absolute right-0 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+        className={`absolute right-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
           isEnd
             ? 'bg-white/10 text-gray-400 cursor-not-allowed'
             : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
@@ -153,7 +153,7 @@ const TrendingMasalas: React.FC = () => {
                       className="h-full w-full object-fill drop-shadow-xl pointer-events-none cursor-pointer"
                     />
                     <div
-                      className="absolute top-2 right-2 z-50 cursor-pointer"
+                      className="absolute top-1 right-2 z-50 cursor-pointer"
                       onClick={() => toggleWishlist(product.id)}
                     >
                       <FiHeart
@@ -170,9 +170,9 @@ const TrendingMasalas: React.FC = () => {
 
               <div className="mt-[200px] px-2 pt-0">
                 <div className="bg-transparent backdrop-blur-xl border-l border-r border-b border-[#6B0073]/60 rounded-b-3xl p-4 pb-5 text-white relative">
-                  <div className="flex items-start justify-between">
+                  <div className="flex items-center justify-between">
                     <div className="flex-1 text-left">
-                      <h3 className="text-lg font-semibold leading-tight">
+                      <h3 className="text-lg font-semibold leading-tight font-body">
                         {product.name.split(' ').map((word, idx) => (
                           <span key={idx}>
                             {word}
@@ -182,7 +182,7 @@ const TrendingMasalas: React.FC = () => {
                       </h3>
                     </div>
 
-                    <div className="flex flex-col items-end space-y-1">
+                    <div className="flex flex-col items-center space-y-1">
                       {!showQuantitySelector[product.id] ? (
                         <button
                           onClick={() =>
@@ -191,12 +191,12 @@ const TrendingMasalas: React.FC = () => {
                               [product.id]: true,
                             }))
                           }
-                          className="bg-yellow-400 text-black px-3 py-1 text-xs rounded-full font-medium hover:brightness-110 transition"
+                          className="bg-yellow-400 text-black px-3 py-1 text-xs rounded-full font-semibold hover:brightness-110 transition font-button"
                         >
                           Add
                         </button>
                       ) : (
-                        <div className="flex items-center space-x-2 bg-yellow-400 rounded-full px-2 py-1 text-black font-semibold text-sm">
+                        <div className="flex items-center space-x-2 bg-yellow-400 rounded-full px-2 py-1 text-black text-sm font-button">
                           <button onClick={() => handleDecrement(product.id)}>
                             <FiMinus />
                           </button>

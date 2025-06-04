@@ -1,94 +1,118 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import type { Swiper as SwiperType } from 'swiper/types';
+import { useNavigate } from 'react-router-dom';
 
 import 'swiper/css';
-
 
 interface Category {
   label: string;
   image: string;
+  path: string;  // Add path for navigation
 }
 
 const categories: Category[] = [
-  { label: 'Veg', image: '/categories/veg fp.png' },
-  { label: 'Non Veg', image: '/categories/non veg fp.png' },
-  { label: 'Snacks', image: '/categories/Snacks fp.png' },
-  { label: 'Soups', image: '/categories/soup fp.png' },
-  { label: 'Biryani', image: '/categories/Biryani fp.png' },
-  { label: 'South Indian', image: '/categories/south india fp.png' },
+  { label: 'Veg', image: '/categories/veg fp.png', path: '/categories/veg' },
+  { label: 'Non Veg', image: '/categories/non veg fp.png', path: '/categories/nonveg' },
+  { label: 'Snacks', image: '/categories/Snacks fp.png', path: '/categories/snacks' },
+  { label: 'Soups', image: '/categories/soup fp.png', path: '/categories/soups' },
+  { label: 'Biryani', image: '/categories/Biryani fp.png', path: '/categories/biryani' },
+  { label: 'South Indian', image: '/categories/south india fp.png', path: '/categories/southindian' },
 ];
 
 const TopCategories: React.FC = () => {
+  const swiperRef = useRef<SwiperType | null>(null);
+  const [isBeginning, setIsBeginning] = useState(true);
+  const [isEnd, setIsEnd] = useState(false);
+  const navigate = useNavigate();
 
-  const swiperRef = useRef<any>(null);
+  const handleSlideChange = () => {
+    const swiper = swiperRef.current;
+    if (swiper) {
+      setIsBeginning(swiper.isBeginning);
+      setIsEnd(swiper.isEnd);
+    }
+  };
+
+  const handleCategoryClick = (path: string) => {
+    navigate(path);
+  };
 
   return (
-    <section
-      id="categories"
-      className="sm:px-6 md:px-10 text-center font-sans w-full relative"
-    >
-      <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white font-[Poppins]">
+    <section id="categories" className="px-4 md:px-8 text-center relative font-heading">
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white">
         Top <span className="text-yellow-400">Categories</span>
       </h2>
 
       {/* Navigation Arrows */}
-      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 hidden md:flex">
-        <button
-          onClick={() => swiperRef.current?.slidePrev()}
-          className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition backdrop-blur-md"
-        >
-          <FiChevronLeft size={24} />
-        </button>
-      </div>
-      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 hidden md:flex">
-        <button
-          onClick={() => swiperRef.current?.slideNext()}
-          className="bg-white/10 hover:bg-white/20 text-white p-2 rounded-full transition backdrop-blur-md"
-        >
-          <FiChevronRight size={24} />
-        </button>
-      </div>
+      <button
+        onClick={() => swiperRef.current?.slidePrev()}
+        disabled={isBeginning}
+        className={`absolute left-1 md:left-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+          isBeginning
+            ? 'bg-white/10 text-gray-400 cursor-not-allowed'
+            : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
+        }`}
+      >
+        <FiChevronLeft className="text-2xl" />
+      </button>
 
-      {/* Swiper Carousel */}
-      <div className="relative max-w-7xl mx-auto">
+      <button
+        onClick={() => swiperRef.current?.slideNext()}
+        disabled={isEnd}
+        className={`absolute right-1 md:right-1 top-1/2 transform -translate-y-1/2 z-20 p-3 rounded-full transition ${
+          isEnd
+            ? 'bg-white/10 text-gray-400 cursor-not-allowed'
+            : 'bg-white/20 text-white hover:bg-yellow-400 hover:text-black'
+        }`}
+      >
+        <FiChevronRight className="text-2xl" />
+      </button>
+
+      <div className="relative max-w-5xl mx-auto overflow-visible">
         <Swiper
-          onSwiper={(swiper: any) => (swiperRef.current = swiper)}
-          slidesPerView={1.5}
+          onSwiper={(swiper: SwiperType) => {
+            swiperRef.current = swiper;
+            setIsBeginning(swiper.isBeginning);
+            setIsEnd(swiper.isEnd);
+          }}
+          onSlideChange={handleSlideChange}
           spaceBetween={20}
-          navigation={false}
+          slidesPerGroup={1}
+          grabCursor={false}
           loop={false}
-          modules={[Navigation]}
+          pagination={{ clickable: true }}
+          navigation={false}
+          modules={[Navigation, Pagination]}
           breakpoints={{
+            0: { slidesPerView: 2 },
             640: { slidesPerView: 2 },
-            768: { slidesPerView: 3 },
-            1024: { slidesPerView: 6 },
+            1024: { slidesPerView: 5 },
           }}
           className="pb-10"
         >
           {categories.map((category, index) => (
-            <SwiperSlide key={index} className="flex justify-center">
+            <SwiperSlide
+              key={index}
+              className="relative w-full overflow-visible transition-transform duration-300 hover:scale-[1.03]"
+            >
               <div
-                onClick={() =>
-                  console.log(`Clicked on category: ${category.label}`)
-                }
-                className="relative cursor-pointer h-52 w-40 bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-white/10"
+                onClick={() => handleCategoryClick(category.path)}
+                className="relative cursor-pointer h-[245px] w-[190px] bg-transparent backdrop-blur-md rounded-3xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-[1.03] border border-white/10"
               >
-                {/* Image Circle */}
-                <div
-                  className="absolute w-44 h-44 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90"
-                  style={{ top: '-10px', left: '-40px' }}
-                >
+                {/* Image */}
+                <div className="absolute -top-6 -left-10 w-52 h-52 rounded-full overflow-hidden transition-all duration-300 hover:scale-105 hover:opacity-90">
                   <img
                     src={category.image}
                     alt={category.label}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-full"
                   />
                 </div>
 
                 {/* Label */}
-                <div className="absolute bottom-4 right-4 text-white text-lg font-semibold font-[Poppins] text-right opacity-90">
+                <div className="absolute bottom-4 right-4 text-white text-lg font-semibold font-body text-right opacity-90">
                   {category.label}
                 </div>
 

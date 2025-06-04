@@ -19,7 +19,6 @@ interface Testimonial {
   image: string;
   rating: number;
 }
-
 const testimonials: Testimonial[] = [
   {
     id: 1,
@@ -123,22 +122,22 @@ const Testimonials: React.FC = () => {
 
   return (
     <section className="my-10 px-4 text-center relative">
-      <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white">
-        What our <span className="text-yellow-400">Customer says</span>
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white font-heading">
+        What Our <span className="text-yellow-400">Customers Say</span>
       </h2>
 
       <div className="relative max-w-6xl mx-auto">
         {/* Navigation Arrows */}
         <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className="absolute left-2 sm:-left-12 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-white p-2 sm:p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
+          className="absolute left-2 sm:-left-14 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-white p-2 sm:p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
         >
           <FiChevronLeft className="text-xl sm:text-2xl" />
         </button>
 
         <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="absolute right-2 sm:-right-12 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-white p-2 sm:p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
+          className="absolute right-2 sm:-right-14 top-1/2 transform -translate-y-1/2 z-20 bg-white/20 text-white p-2 sm:p-3 rounded-full hover:bg-yellow-400 hover:text-black transition"
         >
           <FiChevronRight className="text-xl sm:text-2xl" />
         </button>
@@ -154,22 +153,10 @@ const Testimonials: React.FC = () => {
           centeredSlides
           loop
           breakpoints={{
-            0: {
-              slidesPerView: 1,
-              spaceBetween: 10,
-            },
-            640: {
-              slidesPerView: 1,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 2,
-              spaceBetween: 30,
-            },
-            1024: {
-              slidesPerView: 3,
-              spaceBetween: 90,
-            },
+            0: { slidesPerView: 1, spaceBetween: 10 },
+            640: { slidesPerView: 1, spaceBetween: 20 },
+            768: { slidesPerView: 2, spaceBetween: 30 },
+            1024: { slidesPerView: 3, spaceBetween: 90 },
           }}
           coverflowEffect={{
             rotate: 0,
@@ -185,44 +172,44 @@ const Testimonials: React.FC = () => {
           {testimonials.map((t, index) => {
             const isActive = index === activeIndex;
             return (
-            <SwiperSlide
-              key={t.id}
-              className={`h-[380px] flex flex-col justify-between rounded-xl p-10 text-left text-white border border-white/30 shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-500
-                ${
-                  isActive
-                    ? 'bg-gradient-to-br from-[#2e0545] to-[#541d7a] backdrop-blur-lg'
-                    : 'bg-white/10 backdrop-blur-md blur-[5px] opacity-50 scale-[0.95]'
-                }`}
-            >
+              <SwiperSlide
+                key={t.id}
+                className={`h-[420px] flex flex-col justify-between rounded-xl p-6 text-left text-white border border-white/30 shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all duration-500
+                  ${
+                    isActive
+                      ? 'bg-gradient-to-br from-[#2e0545] to-[#541d7a] backdrop-blur-lg'
+                      : 'bg-white/10 backdrop-blur-md blur-[5px] opacity-50 scale-[0.95]'
+                  }`}
+              >
                 <div>
-                  <div className="text-4xl sm:text-5xl mb-6 text-yellow-400 leading-none">❝</div>
-                  <p className="text-sm sm:text-base leading-relaxed whitespace-pre-line">
+                  <div className="text-4xl sm:text-6xl mb-6 mt-6 ml-1 text-yellow-400 leading-none font-body">❝</div>
+                  <p className="text-xl sm:text-lg leading-relaxed whitespace-pre-line font-body">
                     {t.text}
                   </p>
                 </div>
 
                 <div className="flex items-center justify-between mt-6">
-                <div className="flex items-start gap-3 mt-1">
-                  <img
-                    src={t.image}
-                    alt={t.name}
-                    className="w-14 h-14 rounded-full object-full"
-                  />
-                  <div>
-                    <p className="text-sm font-medium">{t.name}</p>
-                    <p className="text-xs text-gray-300">{t.company}</p>
-                    <div className="flex space-x-1 text-yellow-400 mt-1">
-                      {[...Array(5)].map((_, i) => (
-                        <AiFillStar
-                          key={i}
-                          className={`text-sm ${i < t.rating ? 'text-yellow-400' : 'text-white'}`}
-                        />
-
-                      ))}
+                  <div className="flex items-start gap-2">
+                    <img
+                      src={t.image}
+                      alt={t.name}
+                      className="w-20 h-20 sm:w-22 sm:h-22 rounded-full object-cover"
+                    />
+                    <div>
+                      <p className="text-base sm:text-md font-semibold ml-2 font-body">{t.name}</p>
+                      <p className="text-sm sm:text-base text-gray-300 ml-2 font-body">{t.company}</p>
+                      <div className="flex space-x-1 mt-1 ml-2">
+                        {[...Array(5)].map((_, i) => (
+                          <AiFillStar
+                            key={i}
+                            className={`${
+                              i < t.rating ? 'text-yellow-400' : 'text-white'
+                            } text-lg sm:text-xl`}
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
-
                 </div>
               </SwiperSlide>
             );

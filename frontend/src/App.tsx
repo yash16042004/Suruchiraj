@@ -1,4 +1,3 @@
-// src/App.tsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
@@ -9,8 +8,16 @@ import TrendingMasalas from './components/TrendingMasalas';
 import InternationalCuisine from './components/InternationalCuisine';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
-import SignInPage from './pages/SignInPage.tsx'; 
+
 import { Toaster } from 'react-hot-toast';
+
+import Veg from './pages/categories/Veg.tsx';
+import NonVeg from './pages/categories/NonVeg.tsx';
+import Snacks from './pages/categories/Snacks.tsx';
+import Soups from './pages/categories/Soups.tsx';
+import Biryani from './pages/categories/Biryani.tsx';
+import SouthIndian from './pages/categories/SouthIndian.tsx';
+
 
 const HomePage: React.FC = () => {
   return (
@@ -62,7 +69,15 @@ const App: React.FC = () => {
 
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/signin" element={<SignInPage />} />
+
+
+          {/* Category Routes */}
+          <Route path="/categories/Veg" element={<Veg />} />
+          <Route path="/categories/NonVeg" element={<NonVeg />} />
+          <Route path="/categories/Snacks" element={<Snacks />} />
+          <Route path="/categories/Soups" element={<Soups />} />
+          <Route path="/categories/biryani" element={<Biryani />} />
+          <Route path="/categories/SouthIndian" element={<SouthIndian />} />
         </Routes>
       </div>
     </Router>

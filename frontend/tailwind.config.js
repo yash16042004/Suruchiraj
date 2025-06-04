@@ -6,8 +6,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        mutedrose: '#B8A8A8',
+        ivory: '#F6F5F3',
+        palegold: '#E6BE8A',
+      },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
+        heading: ['"Cormorant Garamond"', 'serif'],
+        body: ['Raleway', 'sans-serif'],
+        button: ['"Droid Sans"', 'sans-serif'],
       },
       animation: {
         'bounce-slow': 'bounce 2s infinite',

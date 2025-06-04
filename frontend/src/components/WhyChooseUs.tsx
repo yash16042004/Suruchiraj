@@ -14,14 +14,14 @@ const features: Feature[] = [
 
 const WhyChooseUs: React.FC = () => {
   return (
-    <section className="my-10 px-4 text-center">
+    <section className="my-10 px-4 text-center font-heading">
       {/* Section Title */}
       <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white">
         Why <span className="text-yellow-400">Choose Us</span>
       </h2>
 
       {/* Container */}
-      <div className="max-w-4xl mx-auto backdrop-blur-md rounded-3xl p-6 md:p-5 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/20 shadow-md bg-transparent">
+      <div className="max-w-4xl mx-auto backdrop-blur-md rounded-3xl p-6 md:p-5 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-transparent">
 
         {features.map((feature, index) => {
           const customSize =
@@ -32,11 +32,11 @@ const WhyChooseUs: React.FC = () => {
           return (
             <div
               key={index}
-              className="flex flex-col items-center text-white w-full md:w-1/4"
+              className="flex flex-col items-center text-white w-full md:w-1/4 font-body"
             >
               <img
                 src={feature.icon}
-                className={`object-contain mb-1 transition-transform duration-300 hover:scale-110 ${customSize}`}
+                className={`object-contain mb-3 transition-transform duration-300 hover:scale-110 ${customSize}`}
                 alt={feature.text}
               />
               <p className="text-sm md:text-base font-medium">{feature.text}</p>
