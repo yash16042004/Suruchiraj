@@ -8,7 +8,7 @@ import TrendingMasalas from './components/TrendingMasalas';
 import InternationalCuisine from './components/InternationalCuisine';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
-
+import SignInPage from './pages/SignInPage.tsx';
 import { Toaster } from 'react-hot-toast';
 
 import Veg from './pages/categories/Veg.tsx';
@@ -69,7 +69,9 @@ const App: React.FC = () => {
 
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/signin" element={<SignInPage />} />
 
+          {/* Other routes can be added here */}
 
           {/* Category Routes */}
           <Route path="/categories/Veg" element={<Veg />} />
