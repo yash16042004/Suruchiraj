@@ -125,7 +125,7 @@ const TrendingMasalas: React.FC = () => {
             setIsEnd(swiper.isEnd);
           }}
           onSlideChange={handleSlideChange}
-          spaceBetween={16}
+          spaceBetween={10}
           slidesPerGroup={1}
           grabCursor={false}
           loop={false}

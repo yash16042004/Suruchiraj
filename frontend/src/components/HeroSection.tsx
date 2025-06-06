@@ -43,33 +43,33 @@ const HeroSlide = ({ image, heading, subheading }: { image: string; heading: Rea
 const slides = [
   {
     image: '/hero/indian-hero.png',
-    heading: <>EXPLORE INDIA'S    <span className="text-[#F98C18]">RICH FLAVORS.</span></>,
+    heading: <>Explore India's <span className="text-[#F98C18]">Rich Flavors.</span></>,
     subheading: 'Unlock authentic tastes with Suruchiraj\'s diverse masalas.',
   },
   {
     image: '/hero/chinese-hero.png',
-    heading: <>WOK UP YOUR   <span className="text-[#DCC79D]">TASTE BUDS!</span></>,
+    heading: <>Wok up your <span className="text-[#DCC79D]">Taste Buds!</span></>,
     subheading: 'Authentic Chinese flavors, made easy with Suruchiraj masalas.',
   },
   {
     image: '/hero/american-hero.png',
-    heading: <>YOUR AMERICAN     <span className="text-[#FED48E]">FEAST AWAITS!</span></>,
+    heading: <>Your American <span className="text-[#FED48E]">Feast Awaits!</span></>,
     subheading: 'Effortlessly create iconic comfort food with Suruchiraj.',
   },
 
   {
     image: '/hero/biryani-hero.png',
-    heading: <>TASTE THE SOUL OF    <span className="text-[#E88635]">BIRYANI.</span></>,
+    heading: <>Taste the soul of <span className="text-[#E88635]">Biryani.</span></>,
     subheading: 'Suruchiraj makes hearty meals unforgettable.',
   },
   {
     image: '/hero/italian-hero.png',
-    heading: <>THE ESSENCE OF ITALY.    <span className="text-[#FCC971]">SIMPLIFIED.</span></>,
+    heading: <>The essence of Italy. <span className="text-[#FCC971]">Simplified.</span></>,
     subheading: 'Achieve culinary excellence with Suruchiraj spices.',
   },
   {
     image: '/hero/thai-hero.png',
-    heading: <>VIBRANT THAI.    <span className="text-palegold">SIMPLY DONE.</span></>,
+    heading: <>Vibrant Thai. <span className="text-palegold">Simply done.</span></>,
     subheading: 'Balance bold aromas with Suruchiraj spices.',
   },
 ];
@@ -78,7 +78,7 @@ const HeroCarousel: React.FC = () => {
   return (
     <Swiper
       modules={[Autoplay, Navigation, Pagination]}
-      autoplay={{ delay: 9000 }}
+      autoplay={{ delay: 7000 }}
       loop
       slidesPerView={1}
       navigation

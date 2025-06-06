@@ -65,7 +65,7 @@ const Navbar: React.FC = () => {
           scrolled ? 'bg-black/30 backdrop-blur-md shadow-md' : 'bg-black'
         )}
       >
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 py-4 flex items-center justify-between font-roboto font-semibold">
           {/* Logo */}
           <Link to="/" className="text-2xl font-bold text-white hover:text-red-500 transition">
             Suruchiraj
@@ -92,7 +92,7 @@ const Navbar: React.FC = () => {
                 <input
                   type="text"
                   placeholder={`Search for "${trendingMasalas[placeholderIndex]}"`}
-                  className="w-full px-4 pr-10 py-2 rounded-full border border-gray-500 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300"
+                  className="w-full px-4 pr-10 py-2 rounded-full border border-gray-500 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300 font-normal"
                 />
                 <img
                   src="search.png"

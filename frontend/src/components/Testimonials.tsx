@@ -121,7 +121,7 @@ const Testimonials: React.FC = () => {
   }, []);
 
   return (
-    <section className="my-10 px-4 text-center relative">
+    <section className="px-4 text-center relative">
       <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-white font-heading">
         What Our <span className="text-yellow-400">Customers Say</span>
       </h2>
