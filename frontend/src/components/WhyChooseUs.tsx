@@ -20,29 +20,38 @@ const WhyChooseUs: React.FC = () => {
         Why <span className="text-yellow-400">Choose Us</span>
       </h2>
 
-      {/* Container */}
-      <div className="max-w-4xl mx-auto backdrop-blur-md rounded-3xl p-6 md:p-5 flex flex-col md:flex-row items-center justify-between gap-4 border border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-transparent">
+      {/* 🖥️ Desktop Layout */}
+      <div className="hidden md:flex max-w-4xl mx-auto backdrop-blur-md rounded-3xl p-6 md:p-5 items-center justify-between gap-4 border border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.3)] bg-transparent">
+        {features.map((feature, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center text-white w-full md:w-1/4 font-body"
+          >
+            <img
+              src={feature.icon}
+              className="h-20 w-20 object-contain mb-3 transition-transform duration-300 hover:scale-110"
+              alt={feature.text}
+            />
+            <p className="text-sm md:text-base font-medium">{feature.text}</p>
+          </div>
+        ))}
+      </div>
 
-        {features.map((feature, index) => {
-          const customSize =
-            feature.icon === 'l4.png'
-              ? 'h-20 w-20' // increase only for this icon
-              : 'h-20 w-20';
-
-          return (
-            <div
-              key={index}
-              className="flex flex-col items-center text-white w-full md:w-1/4 font-body"
-            >
-              <img
-                src={feature.icon}
-                className={`object-contain mb-3 transition-transform duration-300 hover:scale-110 ${customSize}`}
-                alt={feature.text}
-              />
-              <p className="text-sm md:text-base font-medium">{feature.text}</p>
-            </div>
-          );
-        })}
+      {/* 📱 Mobile Layout */}
+      <div className="md:hidden grid grid-cols-2 gap-4 max-w-md mx-auto">
+        {features.map((feature, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center justify-center p-4 bg-white/10 border border-white/20 rounded-2xl text-white backdrop-blur-md shadow-[0_0_10px_rgba(255,255,255,0.2)] transition-transform duration-300 active:scale-105 hover:shadow-yellow-300/30"
+          >
+            <img
+              src={feature.icon}
+              className="h-16 w-16 object-contain mb-2"
+              alt={feature.text}
+            />
+            <p className="text-xs font-medium">{feature.text}</p>
+          </div>
+        ))}
       </div>
     </section>
   );

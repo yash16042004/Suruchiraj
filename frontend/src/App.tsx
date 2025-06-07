@@ -8,32 +8,33 @@ import TrendingMasalas from './components/TrendingMasalas';
 import InternationalCuisine from './components/InternationalCuisine';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
-import SignInPage from './pages/SignInPage.tsx';
 import { Toaster } from 'react-hot-toast';
+import LoginModal from './components/LoginModal'; // ✅ NEW
+
+// ✅ CONTEXT
+import { LoginModalProvider } from './context/LoginModalContext';
 
 // Category Pages
-import Veg from './pages/categories/Veg.tsx';
-import NonVeg from './pages/categories/NonVeg.tsx';
-import Snacks from './pages/categories/Snacks.tsx';
-import Soups from './pages/categories/Soups.tsx';
-import Biryani from './pages/categories/Biryani.tsx';
-import SouthIndian from './pages/categories/SouthIndian.tsx';
+import Veg from './pages/categories/Veg';
+import NonVeg from './pages/categories/NonVeg';
+import Snacks from './pages/categories/Snacks';
+import Soups from './pages/categories/Soups';
+import Biryani from './pages/categories/Biryani';
+import SouthIndian from './pages/categories/SouthIndian';
 
 // Cuisine Pages
-import American from './pages/cuisines/American.tsx';
-import Thai from './pages/cuisines/Thai.tsx';
-import Mexican from './pages/cuisines/Mexican.tsx';
-import Italian from './pages/cuisines/Italian.tsx';
-import Chinese from './pages/cuisines/Chinese.tsx';
+import American from './pages/cuisines/American';
+import Thai from './pages/cuisines/Thai';
+import Mexican from './pages/cuisines/Mexican';
+import Italian from './pages/cuisines/Italian';
+import Chinese from './pages/cuisines/Chinese';
 
 const HomePage: React.FC = () => {
   return (
     <>
       <div
         className="bg-fixed bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/pink-blue.png')",
-        }}
+        style={{ backgroundImage: "url('/pink-blue.png')" }}
       >
         <div className="bg-black bg-opacity-50">
           <HeroSection />
@@ -68,31 +69,32 @@ const HomePage: React.FC = () => {
 const App: React.FC = () => {
   return (
     <Router>
-      <div className="font-sans text-gray-900">
-        <Navbar />
-        <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+      <LoginModalProvider>
+        <div className="font-sans text-gray-900">
+          <Navbar />
+          <Toaster position="top-right" toastOptions={{ duration: 3000 }} />
+          <LoginModal /> {/* ✅ Login Popup available globally */}
 
-        <Routes>
-          {/* Home & Auth */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/signin" element={<SignInPage />} />
+          <Routes>
+            <Route path="/" element={<HomePage />} />
 
-          {/* Top Category Pages */}
-          <Route path="/categories/Veg" element={<Veg />} />
-          <Route path="/categories/NonVeg" element={<NonVeg />} />
-          <Route path="/categories/Snacks" element={<Snacks />} />
-          <Route path="/categories/Soups" element={<Soups />} />
-          <Route path="/categories/biryani" element={<Biryani />} />
-          <Route path="/categories/SouthIndian" element={<SouthIndian />} />
+            {/* Top Category Pages */}
+            <Route path="/categories/Veg" element={<Veg />} />
+            <Route path="/categories/NonVeg" element={<NonVeg />} />
+            <Route path="/categories/Snacks" element={<Snacks />} />
+            <Route path="/categories/Soups" element={<Soups />} />
+            <Route path="/categories/biryani" element={<Biryani />} />
+            <Route path="/categories/SouthIndian" element={<SouthIndian />} />
 
-          {/* International Cuisine Pages */}
-          <Route path="/cuisine/american" element={<American />} />
-          <Route path="/cuisine/thai" element={<Thai />} />
-          <Route path="/cuisine/mexican" element={<Mexican />} />
-          <Route path="/cuisine/italian" element={<Italian />} />
-          <Route path="/cuisine/chinese" element={<Chinese />} />
-        </Routes>
-      </div>
+            {/* International Cuisine Pages */}
+            <Route path="/cuisine/american" element={<American />} />
+            <Route path="/cuisine/thai" element={<Thai />} />
+            <Route path="/cuisine/mexican" element={<Mexican />} />
+            <Route path="/cuisine/italian" element={<Italian />} />
+            <Route path="/cuisine/chinese" element={<Chinese />} />
+          </Routes>
+        </div>
+      </LoginModalProvider>
     </Router>
   );
 };

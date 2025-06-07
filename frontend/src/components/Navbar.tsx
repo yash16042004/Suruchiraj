@@ -1,3 +1,4 @@
+// src/components/Navbar.tsx
 import React, { useState, useEffect } from 'react';
 import {
   FiMenu,
@@ -6,10 +7,10 @@ import {
   FiUser,
 } from 'react-icons/fi';
 import { useCart } from '../context/CartContext';
+import { useLoginModal } from '../context/LoginModalContext';
 import clsx from 'clsx';
 import CartDrawer from './CartDrawer';
 import { Link } from 'react-router-dom';
-
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,13 +19,15 @@ const Navbar: React.FC = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
 
   const { cart } = useCart();
+  const { openModal } = useLoginModal(); // ✅ open modal
+
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   const trendingMasalas = [
     'Dhaniya Masala',
     'Turmeric Powder',
     'Red Chili Powder',
-    'Cumin Powder',	
+    'Cumin Powder',
     'Dummy Masala',
     'Chole Masala',
     'Pav Bhaji Masala',
@@ -46,7 +49,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setPlaceholderIndex((prevIndex) => (prevIndex + 1) % trendingMasalas.length);
-    }, 2500); // Change every 2.5s
+    }, 2500);
     return () => clearInterval(interval);
   }, []);
 
@@ -56,6 +59,11 @@ const Navbar: React.FC = () => {
     { name: 'Contact', href: '#footer' },
     { name: 'About Us', href: '#about' },
   ];
+
+  const handleLoginClick = () => {
+    openModal();        // ✅ Open modal
+    setIsOpen(false);   // ✅ Close mobile menu (if open)
+  };
 
   return (
     <>
@@ -70,7 +78,6 @@ const Navbar: React.FC = () => {
           <Link to="/" className="text-2xl font-bold text-white hover:text-red-500 transition">
             Suruchiraj
           </Link>
-
 
           {/* Desktop Nav */}
           <div className="hidden md:flex items-center space-x-8">
@@ -101,11 +108,13 @@ const Navbar: React.FC = () => {
                 />
               </div>
 
-              <Link to="/signin" className="flex items-center space-x-1 text-gray-300 hover:text-red-500 transition">
+              <button
+                onClick={handleLoginClick}
+                className="flex items-center space-x-1 text-gray-300 hover:text-red-500 transition"
+              >
                 <FiUser className="text-xl" />
                 <span className="text-sm">Sign In</span>
-              </Link>
-
+              </button>
 
               <button
                 onClick={() => setIsCartOpen(true)}
@@ -163,14 +172,14 @@ const Navbar: React.FC = () => {
             </div>
 
             <div className="flex space-x-6 text-white">
-              <div className="flex items-center space-x-1">
+              <button
+                onClick={handleLoginClick}
+                className="flex items-center space-x-1 hover:text-red-500 transition"
+              >
                 <FiUser className="text-xl" />
-                <Link to="/signin" className="flex items-center space-x-1 text-white hover:text-red-500        transition">
-                  <FiUser className="text-xl" />
-                  <span className="text-sm">Sign In</span>
-                </Link>
+                <span className="text-sm">Sign In</span>
+              </button>
 
-              </div>
               <button
                 onClick={() => setIsCartOpen(true)}
                 className="relative flex items-center space-x-1"
