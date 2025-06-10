@@ -4,10 +4,45 @@ import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-// Reusable slide component
-const HeroSlide = ({ image, heading, subheading }: { image: string; heading: React.ReactNode; subheading: string }) => (
+// ✅ Mobile Slide - Updated to use same props as desktop
+const MobileHeroSlide = ({ image, heading, subheading }: { image: string; heading: React.ReactNode; subheading: string }) => (
+  <section className="relative h-[250px] md:hidden px-4 py-6">
+    <div
+      className="h-full w-full rounded-3xl overflow-hidden flex shadow-lg"
+      style={{
+        background: `linear-gradient(to right, rgba(0,0,0,0.85) 40%, transparent 100%), url(${image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="flex flex-col justify-center pl-5 pr-3 text-white w-3/5 space-y-2">
+        <h1 className="text-xl font-semibold font-heading leading-tight">
+          {heading}
+        </h1>
+        <p className="text-[10px] text-white/80">{subheading}</p>
+        <a
+          href="#trending"
+          className="relative inline-block px-5 py-2 text-white font-semibold font-button text-sm rounded-full 
+            bg-gray-900 border border-white/10 shadow-md overflow-hidden group
+            transition-transform duration-300 transform hover:scale-105"
+        >
+          <span className="relative z-10 font-button">Shop Now</span>
+          <span
+            className="absolute top-0 left-[-75%] w-[150%] h-full bg-gradient-to-r 
+              from-transparent via-white/30 to-transparent opacity-0 
+              group-hover:opacity-100 transition-opacity duration-200 
+              pointer-events-none animate-none group-hover:animate-shine font-button"
+          />
+        </a>
+      </div>
+    </div>
+  </section>
+);
+
+// ✅ Desktop Slide (unchanged)
+const DesktopHeroSlide = ({ image, heading, subheading }: { image: string; heading: React.ReactNode; subheading: string }) => (
   <section
-    className="relative bg-cover bg-center h-[550px] flex items-center"
+    className="relative bg-cover bg-center h-[550px] hidden md:flex items-center"
     style={{ backgroundImage: `url(${image})` }}
   >
     <div className="absolute inset-0 bg-black bg-opacity-50" />
@@ -39,12 +74,12 @@ const HeroSlide = ({ image, heading, subheading }: { image: string; heading: Rea
   </section>
 );
 
-// List of slides
+// ✅ Slides data
 const slides = [
   {
     image: '/hero/indian-hero.png',
     heading: <>Explore India's <span className="text-[#F98C18]">Rich Flavors.</span></>,
-    subheading: 'Unlock authentic tastes with Suruchiraj\'s diverse masalas.',
+    subheading: "Unlock authentic tastes with Suruchiraj's diverse masalas.",
   },
   {
     image: '/hero/chinese-hero.png',
@@ -56,7 +91,6 @@ const slides = [
     heading: <>Your American <span className="text-[#FED48E]">Feast Awaits!</span></>,
     subheading: 'Effortlessly create iconic comfort food with Suruchiraj.',
   },
-
   {
     image: '/hero/biryani-hero.png',
     heading: <>Taste the soul of <span className="text-[#E88635]">Biryani.</span></>,
@@ -74,6 +108,7 @@ const slides = [
   },
 ];
 
+// ✅ Hero Carousel Component
 const HeroCarousel: React.FC = () => {
   return (
     <Swiper
@@ -86,7 +121,10 @@ const HeroCarousel: React.FC = () => {
     >
       {slides.map((slide, index) => (
         <SwiperSlide key={index}>
-          <HeroSlide {...slide} />
+          <>
+            <MobileHeroSlide {...slide} />
+            <DesktopHeroSlide {...slide} />
+          </>
         </SwiperSlide>
       ))}
     </Swiper>

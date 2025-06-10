@@ -46,6 +46,25 @@ const TopCategories: React.FC = () => {
         Top <span className="text-yellow-400">Categories</span>
       </h2>
 
+      <div className="block md:hidden overflow-x-auto pb-4">
+        <div className="flex gap-4 pl-1 w-max">
+          {categories.map((category, index) => (
+            <div
+              key={index}
+              onClick={() => handleCategoryClick(category.path)}
+              className="relative flex-shrink-0 w-[160px] h-[210px] bg-white/5 rounded-2xl border border-white/10 shadow-lg cursor-pointer"
+            >
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-32 h-32 rounded-full overflow-hidden">
+                <img src={category.image} alt={category.label} className="w-full h-full object-cover" />
+              </div>
+              <div className="absolute bottom-4 w-full text-center px-2 text-sm font-medium text-white font-body">
+                {category.label}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
       {/* Navigation Arrows */}
       <button
         onClick={() => swiperRef.current?.slidePrev()}

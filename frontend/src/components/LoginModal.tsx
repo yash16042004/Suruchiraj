@@ -22,9 +22,9 @@ const LoginModal: React.FC = () => {
         <input
           type="text"
           placeholder="+91"
-          className="w-full mt-1 mb-4 p-2 bg-zinc-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="w-full mt-1 mb-4 p-2 bg-zinc-800 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 shadow-[0_0_10px_rgba(255,255,255,0.2)]"
         />
-        
+
         <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold w-full py-2 rounded-full mb-4 flex items-center justify-center gap-2">
           Get OTP <img src="/whatsapp-icon.svg" alt="wa" className="h-5 w-5" />
         </button>

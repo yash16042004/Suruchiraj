@@ -1,4 +1,3 @@
-// src/components/Navbar.tsx
 import React, { useState, useEffect } from 'react';
 import {
   FiMenu,
@@ -19,7 +18,7 @@ const Navbar: React.FC = () => {
   const [placeholderIndex, setPlaceholderIndex] = useState(0);
 
   const { cart } = useCart();
-  const { openModal } = useLoginModal(); // ✅ open modal
+  const { openModal } = useLoginModal();
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
@@ -61,8 +60,8 @@ const Navbar: React.FC = () => {
   ];
 
   const handleLoginClick = () => {
-    openModal();        // ✅ Open modal
-    setIsOpen(false);   // ✅ Close mobile menu (if open)
+    openModal();
+    setIsOpen(false);
   };
 
   return (
@@ -70,36 +69,70 @@ const Navbar: React.FC = () => {
       <header
         className={clsx(
           'sticky top-0 z-50 transition-all duration-300',
-          scrolled ? 'bg-black/30 backdrop-blur-md shadow-md' : 'bg-black'
+          scrolled ? 'bg-black/50 backdrop-blur-md shadow-md' : 'bg-black'
         )}
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between font-roboto font-semibold">
-          {/* Logo */}
-          <Link to="/" className="text-2xl font-bold text-white hover:text-red-500 transition">
-            Suruchiraj
-          </Link>
+          {/* Mobile Header */}
+          <div className="flex w-full items-center justify-between md:hidden">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? (
+                <FiX className="text-2xl text-yellow-400" />
+              ) : (
+                <FiMenu className="text-2xl text-yellow-400" />
+              )}
+            </button>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
-            <nav className="flex space-x-6 mr-6">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-gray-300 hover:text-red-500 transition duration-200"
-                >
-                  {link.name}
-                </a>
-              ))}
-            </nav>
+            {/* Keep logo as-is */}
+            <Link
+              to="/"
+              className="text-2xl font-bold text-white"
+              style={{ fontFamily: 'inherit' }}
+            >
+              Suruchiraj
+            </Link>
 
-            {/* Search + Icons */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 text-yellow-400">
+              <button onClick={handleLoginClick}>
+                <FiUser className="text-xl" />
+              </button>
+              <button onClick={() => setIsCartOpen(true)} className="relative">
+                <FiShoppingCart className="text-xl" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                    {cartCount}
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
+
+          {/* Desktop Header */}
+          <div className="hidden md:flex items-center justify-between w-full">
+            {/* Logo */}
+            <Link to="/" className="text-2xl font-bold text-white hover:text-red-500 transition">
+              Suruchiraj
+            </Link>
+
+            {/* Nav + Search closer together */}
+            <div className="flex items-center space-x-6 ml-80">
+              <nav className="flex space-x-6">
+                {navLinks.map((link) => (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className="text-gray-300 hover:text-red-500 transition duration-200"
+                  >
+                    {link.name}
+                  </a>
+                ))}
+              </nav>
+
               <div className="relative w-64">
                 <input
                   type="text"
                   placeholder={`Search for "${trendingMasalas[placeholderIndex]}"`}
-                  className="w-full px-4 pr-10 py-2 rounded-full border border-gray-500 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300 font-normal"
+                  className="w-full px-4 pr-10 py-2 rounded-full border font-normal border-gray-500 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500 transition-all duration-300"
                 />
                 <img
                   src="search.png"
@@ -107,7 +140,10 @@ const Navbar: React.FC = () => {
                   className="absolute right-1.5 top-1/2 -translate-y-1/2 w-7 h-7"
                 />
               </div>
+            </div>
 
+            {/* Auth & Cart */}
+            <div className="flex items-center space-x-4">
               <button
                 onClick={handleLoginClick}
                 className="flex items-center space-x-1 text-gray-300 hover:text-red-500 transition"
@@ -130,20 +166,9 @@ const Navbar: React.FC = () => {
               </button>
             </div>
           </div>
-
-          {/* Mobile Hamburger */}
-          <div className="md:hidden">
-            <button onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? (
-                <FiX className="text-2xl text-white" />
-              ) : (
-                <FiMenu className="text-2xl text-white" />
-              )}
-            </button>
-          </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Collapsible Links (optional) */}
         {isOpen && (
           <div className="md:hidden px-4 pb-4 bg-black text-white">
             <nav className="flex flex-col space-y-2 mb-4">
@@ -157,45 +182,26 @@ const Navbar: React.FC = () => {
                 </a>
               ))}
             </nav>
-
-            <div className="mb-4 relative">
-              <input
-                type="text"
-                placeholder={`Search for "${trendingMasalas[placeholderIndex]}"`}
-                className="w-full px-4 pr-10 py-2 rounded-full border border-gray-500 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-red-500"
-              />
-              <img
-                src="search.png"
-                alt="search"
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5"
-              />
-            </div>
-
-            <div className="flex space-x-6 text-white">
-              <button
-                onClick={handleLoginClick}
-                className="flex items-center space-x-1 hover:text-red-500 transition"
-              >
-                <FiUser className="text-xl" />
-                <span className="text-sm">Sign In</span>
-              </button>
-
-              <button
-                onClick={() => setIsCartOpen(true)}
-                className="relative flex items-center space-x-1"
-              >
-                <FiShoppingCart className="text-xl" />
-                <span className="text-sm">My Cart</span>
-                {cartCount > 0 && (
-                  <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-                    {cartCount}
-                  </span>
-                )}
-              </button>
-            </div>
           </div>
         )}
       </header>
+
+      {/* Mobile Search - separate bar below header */}
+      <div className="md:hidden bg-black px-4 pt-3 pb-4">
+        <div className="relative flex items-center">
+          <div className="absolute left-3">
+            <img src="search.png" alt="search" className="w-6 h-6" />
+          </div>
+          <input
+            type="text"
+            placeholder="Search any Product.."
+            className="w-full pl-10 pr-10 py-2 rounded-full text-sm text-gray-800 bg-white focus:outline-none"
+          />
+          <div className="absolute right-3">
+            <img src="mic.svg" alt="mic" className="w-5 h-5" />
+          </div>
+        </div>
+      </div>
 
       {/* Cart Drawer */}
       <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
